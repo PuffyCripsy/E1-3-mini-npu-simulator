@@ -136,7 +136,7 @@ def performance_table(sizes):
 
         average = (avg_cross + avg_x) / 2
 
-        print(f"{size}×{size:<6} {average:>15.6f} { size:>16}")
+        print(f"{size}×{size:<6} {average:>15.6f} {size * size:>16}")
 
 
 # 9. 모드 1: 3×3 사용자 입력
