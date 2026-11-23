@@ -121,6 +121,18 @@ def normalize_label(value):
 
     raise ValueError(f"알 수 없는 라벨: {value}")
 
+# 필터 키 정규화
+def normalize_filter_keys(item):
+    if not isinstance(item, dict):
+        return None
+
+    normalized = {}
+
+    for key, matrix in item.items():
+        standard_key = normalize_label(key)
+        normalized[standard_key] = matrix
+
+    return normalized
 
 # 8. 크기별 성능 분석
 def performance_table(sizes):
@@ -189,13 +201,18 @@ def mode_json():
     print("\n[필터 로드]")
 
     for size in (5, 13, 25):
-        item = filters.get(f"size_{size}")
+    item = filters.get(f"size_{size}")
 
-        good = (
-            isinstance(item, dict)
-            and valid_matrix(item.get("cross"), size)
-            and valid_matrix(item.get("x"), size)
-        )
+    try:
+        normalized_item = normalize_filter_keys(item)
+    except ValueError:
+        normalized_item = None
+
+    good = (
+        isinstance(normalized_item, dict)
+        and valid_matrix(normalized_item.get("Cross"), size)
+        and valid_matrix(normalized_item.get("X"), size)
+    )
 
         print(
             f"size_{size}: "
