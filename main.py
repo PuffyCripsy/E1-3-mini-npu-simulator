@@ -201,18 +201,18 @@ def mode_json():
     print("\n[필터 로드]")
 
     for size in (5, 13, 25):
-    item = filters.get(f"size_{size}")
+        item = filters.get(f"size_{size}")
 
-    try:
-        normalized_item = normalize_filter_keys(item)
-    except ValueError:
-        normalized_item = None
+        try:
+            normalized_item = normalize_filter_keys(item)
+        except ValueError:
+            normalized_item = None
 
-    good = (
-        isinstance(normalized_item, dict)
-        and valid_matrix(normalized_item.get("Cross"), size)
-        and valid_matrix(normalized_item.get("X"), size)
-    )
+        good = (
+            isinstance(normalized_item, dict)
+            and valid_matrix(normalized_item.get("Cross"), size)
+            and valid_matrix(normalized_item.get("X"), size)
+        )
 
         print(
             f"size_{size}: "
